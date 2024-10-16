@@ -13,7 +13,7 @@ import java.time.LocalDate;
 @Getter
 @Setter
 @MappedSuperclass
-public class User {
+public class User extends Base{
     private String name;
     private String family;
     private String username;

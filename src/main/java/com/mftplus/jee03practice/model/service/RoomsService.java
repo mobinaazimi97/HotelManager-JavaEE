@@ -1,21 +1,62 @@
 package com.mftplus.jee03practice.model.service;
 
 import com.mftplus.jee03practice.model.entity.Rooms;
-import com.mftplus.jee03practice.model.repository.RoomsRepository;
+import com.mftplus.jee03practice.model.repository.CrudRepository;
+import lombok.Getter;
 
-public class RoomsService {
+import java.util.HashMap;
+import java.util.List;
 
-    public static void save(Rooms room) throws Exception {
+public class RoomsService implements Service<Rooms, Long> {
+    @Getter
+    private static RoomsService roomsService = new RoomsService();
 
-        try (RoomsRepository roomsRepository = new RoomsRepository()) {
-            roomsRepository.save(room);
+    private RoomsService() {
+    }
+
+    @Override
+    public void save(Rooms rooms) throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            crudRepository.save(rooms);
+
         }
     }
 
-    public static void edit(Rooms rooms) throws Exception {
+    @Override
+    public void edit(Rooms rooms) throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            crudRepository.edit(rooms);
+        }
+    }
 
-        try (RoomsRepository roomsRepository = new RoomsRepository()) {
-            roomsRepository.edit(rooms);
+    @Override
+    public void remove(Long id) throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            crudRepository.remove(id, Rooms.class);
+        }
+    }
+
+    @Override
+    public Rooms findById(Long id) throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            return crudRepository.findById(id, Rooms.class);
+
+        }
+    }
+
+    @Override
+    public List<Rooms> findAll() throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            return crudRepository.findAll(Rooms.class);
+        }
+    }
+
+    public List<Rooms> findByRequirement(String requirement) throws Exception {
+        try (CrudRepository<Rooms, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("requirement", requirement);
+            return crudRepository.findBy("Room.findByRequirement", params, Rooms.class);
+
         }
     }
 }

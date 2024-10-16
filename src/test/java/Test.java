@@ -5,6 +5,7 @@ import jakarta.persistence.EntityTransaction;
 import jakarta.persistence.Persistence;
 
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 public class Test {
     public static void main(String[] args) {
@@ -26,7 +27,7 @@ public class Test {
 
         Transaction transaction = Transaction.builder()
                 .transactionNumber(6L)
-                .transactionDate(LocalDate.of(2023, 11, 13))
+                .transactionDateTime(LocalDateTime.of(2000,12,21,22,3))
                 .build();
 
         Admin admin = Admin.builder()
@@ -50,7 +51,7 @@ public class Test {
                .username("sannn")
                .password("444445")
                .employeeAge(LocalDate.of(1998,8,5))
-               .empContactNum(9L)
+               .empContactNum("09")
                .jobTitle("db")
                .build();
 
@@ -82,7 +83,7 @@ public class Test {
         customer.setName("shiva");
         payment.setCustomer(customer);
        rooms.setRequirement("ssh");
-        employee.setRoom(rooms);
+      //  employee.setRoom(rooms);
         reservation.setAmount("2");
         rooms.setReservation(reservation);
         customer.setName("homa");
