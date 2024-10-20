@@ -5,6 +5,7 @@ import com.mftplus.jee03practice.model.entity.Admin;
 import com.mftplus.jee03practice.model.repository.CrudRepository;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -75,4 +76,29 @@ public class AdminService implements Service<Admin , Long> {
             return (admins.isEmpty())? null:admins.get(0);
         }
     }
+    public Admin findByTransactionHistory(LocalDateTime transactionDateTime) throws Exception {
+        try (CrudRepository<Admin, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String , Object>params = new HashMap<>();
+            params.put("transactionDateTime",transactionDateTime);
+            List<Admin>admins=crudRepository.findBy("Admin.findByTransactionHistory",params, Admin.class);
+            if (admins.isEmpty()){
+                return null;
+            }else {
+                return admins.get(0);
+            }
+        }
+    }
+    public Admin findByTransactionNum(Long transactionNumber) throws Exception {
+        try (CrudRepository<Admin, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String , Object>params = new HashMap<>();
+            params.put("transactionNumber",transactionNumber);
+            List<Admin>admins=crudRepository.findBy("Admin.findByTransactionNum",params, Admin.class);
+            if (admins.isEmpty()){
+                return null;
+            }else {
+                return admins.get(0);
+            }
+        }
+    }
+
 }

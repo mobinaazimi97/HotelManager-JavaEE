@@ -17,30 +17,30 @@ import java.time.LocalDate;
 @Entity(name = "employeeEntity")
 @Table(name = "employee_tbl")
 @NamedQueries({
-        @NamedQuery(name ="Employee.findByFamily",query = "select ee from employeeEntity ee where ee.family like : family"),
-        @NamedQuery(name = "Employee.findByUsernameAndPassword" , query = "select ee from employeeEntity ee where ee.username like :username and ee.password like : password"),
-        @NamedQuery(name = "Employee.findByJobTitle",query = "select ee from employeeEntity ee where ee.jobTitle like : jobTitle"),
-        @NamedQuery(name = "Employee.findByEmpContactNum",query = "select ee from employeeEntity ee where ee.empContactNum like : empContactNum"),
-   //todo     @NamedQuery(name = "Employee.findByRoomId",query = "select ee from employeeEntity ee where ee.rooms.id = : rooms")
+        @NamedQuery(name = "Employee.findByFamily", query = "select ee from employeeEntity ee where ee.family like : family"),
+        @NamedQuery(name = "Employee.findByUsernameAndPassword", query = "select ee from employeeEntity ee where ee.username like :username and ee.password like : password"),
+        @NamedQuery(name = "Employee.findByJobTitle", query = "select ee from employeeEntity ee where ee.jobTitle like : jobTitle"),
+        @NamedQuery(name = "Employee.findByEmpContactNum", query = "select ee from employeeEntity ee where ee.empContactNum like : empContactNum"),
+        @NamedQuery(name = "Employee.findByRoomId", query = "select ee from employeeEntity ee where ee.rooms.id = : id")
 
 })
 
-public class Employee extends Base{
+public class Employee extends Base {
     @Id
     @SequenceGenerator(name = "employeeSeq", sequenceName = "employee_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE,generator = "employeeSeq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "employeeSeq")
     private Long id;
 
-    @Column(name = "first_name", length = 20 , nullable = false)
+    @Column(name = "first_name", length = 20, nullable = false)
     private String name;
 
-    @Column(name = "last_name", length = 20  ,nullable = false)
+    @Column(name = "last_name", length = 20, nullable = false)
     private String family;
 
-    @Column(name = "username", length = 20 , nullable = false , unique = true,columnDefinition = "Nvarchar2()")
+    @Column(name = "username", length = 20, nullable = false, unique = true, columnDefinition = "Nvarchar2()")
     private String username;
 
-    @Column(name = "password", length = 20 , nullable = false,columnDefinition = "Nvarchar2()")
+    @Column(name = "password", length = 20, nullable = false, columnDefinition = "Nvarchar2()")
     private String password;
 
     @Column(name = "birth_date")
@@ -49,16 +49,11 @@ public class Employee extends Base{
     @Column(name = "contact_num", nullable = false)
     private String empContactNum;
 
-    @Column(name = "your_job_title", length = 40 , nullable = false)
+    @Column(name = "your_job_title", length = 40, nullable = false)
     private String jobTitle;
 
-//    @OneToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE  ,CascadeType.DETACH  ,CascadeType.REFRESH})
-    @OneToOne(cascade = {CascadeType.PERSIST} , fetch = FetchType.EAGER)
+    //    @OneToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE  ,CascadeType.DETACH  ,CascadeType.REFRESH})
+    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
     private Rooms rooms;
-
-//    @Override
-//    public String toString() {
-//        return new Gson().toJson(this);
-//    }
 
 }

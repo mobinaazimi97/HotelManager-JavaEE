@@ -6,6 +6,7 @@ import lombok.NoArgsConstructor;
 import lombok.Setter;
 import lombok.ToString;
 import lombok.experimental.SuperBuilder;
+
 import java.time.LocalDateTime;
 
 @NoArgsConstructor
@@ -17,7 +18,9 @@ import java.time.LocalDateTime;
 @Table(name = "transactions_tbl")
 @NamedQueries({
         @NamedQuery(name = "Transaction.findByTransactionDateTime", query = "select tt from transactionEntity tt where tt.transactionDateTime = : transactionDateTime"),
-        @NamedQuery(name = "Transaction.findByTransactionNumber", query = "select tt from transactionEntity tt where tt.transactionNumber =:transactionNumber")
+        @NamedQuery(name = "Transaction.findByTransactionNumber", query = "select tt from transactionEntity tt where tt.transactionNumber =:transactionNumber"),
+        @NamedQuery(name = "Transaction.findByCusUserAndPass", query = "select tt from transactionEntity tt where tt.customer.username =:username and tt.customer.password = : password"),
+        @NamedQuery(name = "Transaction.findByCusNameAndFamily", query = "select tt from transactionEntity tt where tt.customer.name = :name and tt.customer.family = : family")
 })
 
 public class Transaction extends Base {

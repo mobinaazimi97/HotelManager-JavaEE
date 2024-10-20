@@ -15,24 +15,22 @@ import lombok.experimental.SuperBuilder;
 @Entity(name = "paymentEntity")
 @Table(name = "payment_tbl")
 @NamedQueries({
-        @NamedQuery(name ="Payment.findByPayType",query = "select pp from paymentEntity pp where pp.payType like : payType")
+        @NamedQuery(name = "Payment.findByPayType", query = "select pp from paymentEntity pp where pp.payType like : payType"),
+        @NamedQuery(name = "Payment.cusUserAndPass", query = "select pp from paymentEntity pp where pp.customer.username = : username and pp.customer.password = : pasword"),
+        @NamedQuery(name = "Payment.findByCusTransNumber", query = "select pp from paymentEntity pp where pp.customer.cusTransaction.transactionNumber =:transactionNumber ")
 })
 
 public class Payment extends Base {
     @Id
     @SequenceGenerator(name = "paymentSeq", sequenceName = "payment_seq", allocationSize = 1)
-    @GeneratedValue(strategy = GenerationType.SEQUENCE , generator = "paymentSeq")
+    @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "paymentSeq")
     private Long id;
 
-    @Column(name = "payment_type", length = 20 , nullable = false)
+    @Column(name = "payment_type", length = 20, nullable = false)
     private String payType;
 
-    @OneToOne(cascade = CascadeType.PERSIST,fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Customer customer;
 
-//    @Override
-//    public String toString() {
-//        return new Gson().toJson(this);
-//    }
 
 }

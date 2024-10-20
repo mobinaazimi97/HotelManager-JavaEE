@@ -4,6 +4,7 @@ import com.mftplus.jee03practice.model.entity.Customer;
 import com.mftplus.jee03practice.model.repository.CrudRepository;
 import lombok.Getter;
 
+import java.time.LocalDateTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -66,6 +67,20 @@ public class CustomerService implements Service<Customer, Long> {
             params.put("password", password);
             List<Customer> customers = crudRepository.findBy("Customer.findByUsernameAndPassword", params, Customer.class);
             return (customers.isEmpty()) ? null : customers.get(0);
+        }
+    }
+
+    public Customer findByTransHistoryAndNum(LocalDateTime transactionDateTime, Long transactionNumber) throws Exception {
+        try (CrudRepository<Customer, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("transactionDateTime", transactionDateTime);
+            params.put("transactionNumber", transactionNumber);
+            List<Customer> customers = crudRepository.findBy("Customer.findByTransHistoryAndNum", params, Customer.class);
+            if (customers.isEmpty()) {
+                return null;
+            } else {
+                return customers.get(0);
+            }
         }
     }
 }

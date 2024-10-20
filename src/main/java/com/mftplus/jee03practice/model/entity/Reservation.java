@@ -17,7 +17,11 @@ import java.time.LocalDate;
 @Entity(name = "reservationEntity")
 @Table(name = "reservation_tbl")
 @NamedQueries({
-        @NamedQuery(name = "Reservation.findByDate", query = "select re from reservationEntity re where re.reservationDate = : reservationDate")
+        @NamedQuery(name = "Reservation.findByDateTime", query = "select re from reservationEntity re where re.reservationDateTime = : reservationDateTime"),
+        @NamedQuery(name = "Reservation.findByCusTransNum", query = "select re from reservationEntity re where re.customer.cusTransaction.transactionNumber = : transactionNumber"),
+        @NamedQuery(name = "Reservation.findByCusUserAndPass", query = "select re from reservationEntity re where re.customer.username = : username and re.customer.password=:password")
+
+
 })
 
 public class Reservation extends Base {
@@ -29,14 +33,10 @@ public class Reservation extends Base {
     @Column(name = "reservation_amount", nullable = false)
     private String amount;
 
-    @Column(name = "reservation_date")
-    private LocalDate reservationDate;
+    @Column(name = "reservation_dateTime")
+    private LocalDate reservationDateTime;
 
-    @OneToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Customer customer;
 
-//    @Override
-//    public String toString() {
-//        return new Gson().toJson(this);
-//    }
 }
