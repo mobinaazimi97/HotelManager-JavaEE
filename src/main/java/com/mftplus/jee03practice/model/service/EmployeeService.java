@@ -1,6 +1,5 @@
 package com.mftplus.jee03practice.model.service;
 
-import com.mftplus.jee03practice.model.entity.Admin;
 import com.mftplus.jee03practice.model.entity.Employee;
 import com.mftplus.jee03practice.model.repository.CrudRepository;
 import lombok.Getter;
@@ -52,6 +51,7 @@ public class EmployeeService implements Service<Employee, Long> {
         }
     }
 
+
     public List<Employee> findByFamily(String family) throws Exception {
         try (CrudRepository<Employee, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
@@ -71,6 +71,15 @@ public class EmployeeService implements Service<Employee, Long> {
         }
     }
 
+    public List<Employee> findByJobTitle(String jobTitle) throws Exception {
+        try (CrudRepository<Employee, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("jobTitle", jobTitle);
+            return crudRepository.findBy("Employee.findByJobTitle", params, Employee.class);
+        }
+    }
+
+
     public Employee findByEmpContactNum(String empContactNum) throws Exception {
         try (CrudRepository<Employee, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
@@ -80,15 +89,15 @@ public class EmployeeService implements Service<Employee, Long> {
         }
     }
 
-    public Employee findByRoomId(Long id) throws Exception {
+    public List<Employee> findByRoomNumber(String roomNumber) throws Exception {
         try (CrudRepository<Employee, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
-            params.put("id", id);
-            List<Employee> employeeList = crudRepository.findBy("Employee.findByRoomId", params, Employee.class);
+            params.put("roomNumber", roomNumber);
+            List<Employee> employeeList = crudRepository.findBy("Employee.findByRoomNumber", params , Employee.class);
             if (employeeList.isEmpty()) {
                 return null;
             } else {
-                return employeeList.get(0);
+                return employeeList;
             }
         }
     }

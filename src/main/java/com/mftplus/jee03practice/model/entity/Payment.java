@@ -16,8 +16,10 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "payment_tbl")
 @NamedQueries({
         @NamedQuery(name = "Payment.findByPayType", query = "select pp from paymentEntity pp where pp.payType like : payType"),
-        @NamedQuery(name = "Payment.cusUserAndPass", query = "select pp from paymentEntity pp where pp.customer.username = : username and pp.customer.password = : pasword"),
-        @NamedQuery(name = "Payment.findByCusTransNumber", query = "select pp from paymentEntity pp where pp.customer.cusTransaction.transactionNumber =:transactionNumber ")
+        @NamedQuery(name = "Payment.cusUserAndPass", query = "select pp from paymentEntity pp where pp.customer.username = : username and pp.customer.password = : password"),
+        @NamedQuery(name = "Payment.cusEmail", query = "select pp from paymentEntity pp where pp.customer.email = : email"),
+        @NamedQuery(name = "Payment.findByCusTransNumber", query = "select pp from paymentEntity pp where pp.customer.cusTransaction.transactionNumber =:transactionNumber "),
+        @NamedQuery(name = "Payment.findByRoomNumber", query = "select pp from paymentEntity pp where pp.rooms.roomNumber = : roomNumber")
 })
 
 public class Payment extends Base {
@@ -31,6 +33,9 @@ public class Payment extends Base {
 
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Customer customer;
+
+    @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+    private Rooms rooms;
 
 
 }

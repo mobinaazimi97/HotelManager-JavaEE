@@ -51,12 +51,66 @@ public class PaymentService implements Service<Payment, Long> {
         }
     }
 
+
     public Payment findByPayType(String payType) throws Exception {
         try (CrudRepository<Payment, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
             params.put("payType", payType);
             List<Payment> payments = crudRepository.findBy("Payment.findByPayType", params, Payment.class);
             return (payments.isEmpty()) ? null : payments.get(0);
+        }
+    }
+
+    public Payment findByCusUserPass(String username, String password) throws Exception {
+        try (CrudRepository<Payment, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("username", username);
+            params.put("password", password);
+            List<Payment> payments = crudRepository.findBy("Payment.cusUserAndPass", params, Payment.class);
+            if (payments.isEmpty()) {
+                return null;
+            } else {
+                return payments.get(0);
+            }
+        }
+    }
+
+    public Payment findByCusEmail(String email) throws Exception {
+        try (CrudRepository<Payment, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("email", email);
+            List<Payment> payments = crudRepository.findBy("Payment.cusEmail", params, Payment.class);
+            if (payments.isEmpty()) {
+                return null;
+            } else {
+                return payments.get(0);
+            }
+        }
+    }
+
+    public Payment findByCusTransNumber(Long transactionNumber) throws Exception {
+        try (CrudRepository<Payment, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("transactionNumber", transactionNumber);
+            List<Payment> payments = crudRepository.findBy("Payment.findByCusTransNumber", params, Payment.class);
+            if (payments.isEmpty()) {
+                return null;
+            } else {
+                return payments.get(0);
+            }
+        }
+    }
+
+    public Payment findByRoomNumber(String roomNumber) throws Exception {
+        try (CrudRepository<Payment, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("rooms", roomNumber);
+            List<Payment> payments = crudRepository.findBy("Payment.findByRoomNumber", params, Payment.class);
+            if (payments.isEmpty()) {
+                return null;
+            } else {
+                return payments.get(0);
+            }
         }
     }
 }

@@ -16,9 +16,12 @@ import lombok.experimental.SuperBuilder;
 @Table(name = "room_tbl")
 @NamedQueries({
         @NamedQuery(name = "Room.findByRequirement", query = "select rr from roomEntity rr where rr.requirement like : requirement"),
-        @NamedQuery(name = "Room.findByReserveDateTime", query = "select rr from roomEntity rr where rr.reservation.reservationDateTime =: reservationDateTime"),
-        @NamedQuery(name = "Room.findByReserveId", query = "select rr from roomEntity rr where rr.reservation.id =: id"),
-        @NamedQuery(name = "Room.findByCusUsername", query = "select rr from roomEntity rr where rr.reservation.customer.username =: username")
+        @NamedQuery(name = "Room.findByRoomNum", query = "select rr from roomEntity rr where rr.roomNumber =: roomNumber"),
+        @NamedQuery(name = "Room.findByReserveDate", query = "select rr from roomEntity rr where rr.reservation.reservationDate =: reservationDate"),
+        @NamedQuery(name = "Room.findByReserveTime", query = "select rr from roomEntity rr where rr.reservation.reservationTime =: reservationTime"),
+        @NamedQuery(name = "Room.findByReserveId", query = "select rr from roomEntity rr where rr.reservation.id =: reservation"),
+        @NamedQuery(name = "Room.findByCusUsername", query = "select rr from roomEntity rr where rr.reservation.customer.username =: customer")
+  //todo      @NamedQuery(name = "Room.findByCusUserAndPass", query = "select rr from roomEntity rr where rr.reservation.customer.username =: customer and  rr.reservation.customer.password=:password")
 })
 
 public class Rooms extends Base {
@@ -27,13 +30,18 @@ public class Rooms extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "roomSeq")
     private Long id;
 
-    @Column(name = "detail", length = 60, columnDefinition = "Nvarchar2()")
+    @Column(name = "detail", length = 50)
     private String detail;
 
     @Column(name = "requirement", length = 60)
     private String requirement;
 
+    @Column(name = "roomNumber",length = 50)
+    private String roomNumber;
+
     @OneToOne(cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
     private Reservation reservation;
 
+//    @OneToMany(mappedBy ="roomEmployee" , cascade = CascadeType.PERSIST, fetch = FetchType.EAGER)
+//    private List<Employee> employees = new ArrayList<>();
 }

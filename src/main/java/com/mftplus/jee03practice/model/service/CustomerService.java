@@ -4,7 +4,8 @@ import com.mftplus.jee03practice.model.entity.Customer;
 import com.mftplus.jee03practice.model.repository.CrudRepository;
 import lombok.Getter;
 
-import java.time.LocalDateTime;
+import java.time.LocalDate;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -52,6 +53,7 @@ public class CustomerService implements Service<Customer, Long> {
         }
     }
 
+
     public List<Customer> findByFamily(String family) throws Exception {
         try (CrudRepository<Customer, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
@@ -70,12 +72,37 @@ public class CustomerService implements Service<Customer, Long> {
         }
     }
 
-    public Customer findByTransHistoryAndNum(LocalDateTime transactionDateTime, Long transactionNumber) throws Exception {
+    public Customer findByTransactionDate(LocalDate transactionDate) throws Exception {
         try (CrudRepository<Customer, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String, Object> params = new HashMap<>();
-            params.put("transactionDateTime", transactionDateTime);
+            params.put("transactionDate", transactionDate);
+            List<Customer> customers = crudRepository.findBy("Customer.findByTransactionDate", params, Customer.class);
+            if (customers.isEmpty()) {
+                return null;
+            } else {
+                return customers.get(0);
+            }
+        }
+    }
+
+    public Customer findByTransactionTime(LocalTime transactionTime) throws Exception {
+        try (CrudRepository<Customer, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
+            params.put("transactionTime", transactionTime);
+            List<Customer> customers = crudRepository.findBy("Customer.findByTransactionTime", params, Customer.class);
+            if (customers.isEmpty()) {
+                return null;
+            } else {
+                return customers.get(0);
+            }
+        }
+    }
+
+    public Customer findByTransactionNum(Long transactionNumber) throws Exception {
+        try (CrudRepository<Customer, Long> crudRepository = new CrudRepository<>()) {
+            HashMap<String, Object> params = new HashMap<>();
             params.put("transactionNumber", transactionNumber);
-            List<Customer> customers = crudRepository.findBy("Customer.findByTransHistoryAndNum", params, Customer.class);
+            List<Customer> customers = crudRepository.findBy("Customer.findByTransactionNum", params, Customer.class);
             if (customers.isEmpty()) {
                 return null;
             } else {

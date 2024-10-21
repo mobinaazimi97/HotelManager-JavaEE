@@ -21,8 +21,7 @@ import java.time.LocalDate;
         @NamedQuery(name = "Employee.findByUsernameAndPassword", query = "select ee from employeeEntity ee where ee.username like :username and ee.password like : password"),
         @NamedQuery(name = "Employee.findByJobTitle", query = "select ee from employeeEntity ee where ee.jobTitle like : jobTitle"),
         @NamedQuery(name = "Employee.findByEmpContactNum", query = "select ee from employeeEntity ee where ee.empContactNum like : empContactNum"),
-        @NamedQuery(name = "Employee.findByRoomId", query = "select ee from employeeEntity ee where ee.rooms.id = : id")
-
+        @NamedQuery(name = "Employee.findByRoomNumber", query = "select ee from employeeEntity ee where ee.roomEmployee.roomNumber = : roomNumber")
 })
 
 public class Employee extends Base {
@@ -37,10 +36,10 @@ public class Employee extends Base {
     @Column(name = "last_name", length = 20, nullable = false)
     private String family;
 
-    @Column(name = "username", length = 20, nullable = false, unique = true, columnDefinition = "Nvarchar2()")
+    @Column(name = "username", length = 20, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", length = 20, nullable = false, columnDefinition = "Nvarchar2()")
+    @Column(name = "password", length = 20, nullable = false)
     private String password;
 
     @Column(name = "birth_date")
@@ -53,7 +52,8 @@ public class Employee extends Base {
     private String jobTitle;
 
     //    @OneToOne(cascade = {CascadeType.PERSIST , CascadeType.MERGE  ,CascadeType.DETACH  ,CascadeType.REFRESH})
-    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
-    private Rooms rooms;
-
+//    @OneToOne(cascade = {CascadeType.PERSIST}, fetch = FetchType.EAGER)
+//    private Rooms rooms;
+    @ManyToOne(cascade = CascadeType.PERSIST , fetch = FetchType.EAGER)
+    private Rooms roomEmployee;
 }

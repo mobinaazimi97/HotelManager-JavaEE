@@ -5,7 +5,9 @@ import com.mftplus.jee03practice.model.entity.Admin;
 import com.mftplus.jee03practice.model.repository.CrudRepository;
 import lombok.Getter;
 
+import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.time.LocalTime;
 import java.util.HashMap;
 import java.util.List;
 
@@ -76,19 +78,31 @@ public class AdminService implements Service<Admin , Long> {
             return (admins.isEmpty())? null:admins.get(0);
         }
     }
-    public Admin findByTransactionHistory(LocalDateTime transactionDateTime) throws Exception {
+    public List<Admin> findByTransactionDate(LocalDate transactionDate) throws Exception {
         try (CrudRepository<Admin, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String , Object>params = new HashMap<>();
-            params.put("transactionDateTime",transactionDateTime);
-            List<Admin>admins=crudRepository.findBy("Admin.findByTransactionHistory",params, Admin.class);
+            params.put("transactionDate",transactionDate);
+            List<Admin>admins=crudRepository.findBy("Admin.findByTransactionDate",params, Admin.class);
             if (admins.isEmpty()){
                 return null;
             }else {
-                return admins.get(0);
+                return admins;
             }
         }
     }
-    public Admin findByTransactionNum(Long transactionNumber) throws Exception {
+//    public Admin findByTransactionTime(LocalTime transactionTime) throws Exception {
+//        try (CrudRepository<Admin, Long> crudRepository = new CrudRepository<>()) {
+//            HashMap<String , Object>params = new HashMap<>();
+//            params.put("transactionTime",transactionTime);
+//            List<Admin>admins=crudRepository.findBy("Admin.findByTransactionTime",params, Admin.class);
+//            if (admins.isEmpty()){
+//                return null;
+//            }else {
+//                return admins.get(0);
+//            }
+//        }
+//    }
+    public List<Admin> findByTransactionNum(Long transactionNumber) throws Exception {
         try (CrudRepository<Admin, Long> crudRepository = new CrudRepository<>()) {
             HashMap<String , Object>params = new HashMap<>();
             params.put("transactionNumber",transactionNumber);
@@ -96,7 +110,7 @@ public class AdminService implements Service<Admin , Long> {
             if (admins.isEmpty()){
                 return null;
             }else {
-                return admins.get(0);
+                return admins;
             }
         }
     }

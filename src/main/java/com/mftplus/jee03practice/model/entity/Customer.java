@@ -18,7 +18,11 @@ import lombok.experimental.SuperBuilder;
 @NamedQueries({
         @NamedQuery(name = "Customer.findByFamily", query = "select cc from customerEntity cc where cc.family like : family"),
         @NamedQuery(name = "Customer.findByUsernameAndPassword", query = "select cc from customerEntity cc where cc.username like :username and cc.password like : password"),
-        @NamedQuery(name = "Customer.findByTransHistoryAndNum", query = "select cc from customerEntity cc where cc.cusTransaction.transactionDateTime = : transactionDateTime and cc.cusTransaction.transactionNumber = : transactionNumber")
+        @NamedQuery(name = "Customer.findByTransactionDate", query = "select cc from customerEntity cc where cc.cusTransaction.transactionDate = : transactionDate"),
+        @NamedQuery(name = "Customer.findByTransactionTime", query = "select cc from customerEntity cc where cc.cusTransaction.transactionTime = : transactionTime"),
+        @NamedQuery(name = "Customer.findByTransactionNum", query = "select cc from customerEntity cc where cc.cusTransaction.transactionNumber = : transactionNumber")
+
+
 
 })
 
@@ -36,13 +40,13 @@ public class Customer extends Base {
     @Column(name = "family", length = 20, nullable = false)
     private String family;
 
-    @Column(name = "username", length = 20, nullable = false, unique = true, columnDefinition = "Nvarchar2()")
+    @Column(name = "username", length = 20, nullable = false, unique = true)
     private String username;
 
-    @Column(name = "password", length = 20, nullable = false, columnDefinition = "Nvarchar2()")
+    @Column(name = "password", length = 20, nullable = false)
     private String password;
 
-    @Column(name = "email", length = 30, nullable = false, columnDefinition = "Nvarchar2()")
+    @Column(name = "email", length = 30, nullable = false)
     private String email;
 
     private Boolean enabled;

@@ -27,7 +27,7 @@ public class Test {
 
         Transaction transaction = Transaction.builder()
                 .transactionNumber(6L)
-                .transactionDateTime(LocalDateTime.of(2000,12,21,22,3))
+                .transactionDate(LocalDate.of(2000,12,21))
                 .build();
 
         Admin admin = Admin.builder()
@@ -63,7 +63,7 @@ public class Test {
 
        Reservation reservation = Reservation.builder()
                .amount("3")
-               .reservationDate(LocalDate.of(2024, 7, 3))
+               //.reservationDateTime(LocalDateTime.of(2024, 7, 3,4,5))
                .build();
 
         entityManager.persist(customer);
@@ -79,7 +79,7 @@ public class Test {
         customer.setName("mina");
         transaction.setCustomer(customer);
         transaction.setTransactionNumber(2L);
-        admin.setAdminTransaction(transaction);
+   //     admin.setAdminTransaction(transaction);
         customer.setName("shiva");
         payment.setCustomer(customer);
        rooms.setRequirement("ssh");
