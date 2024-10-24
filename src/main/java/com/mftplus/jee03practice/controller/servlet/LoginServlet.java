@@ -1,6 +1,7 @@
 package com.mftplus.jee03practice.controller.servlet;
 
 import com.mftplus.jee03practice.model.entity.Admin;
+import com.mftplus.jee03practice.model.entity.Customer;
 import jakarta.servlet.ServletException;
 import jakarta.servlet.annotation.WebServlet;
 import jakarta.servlet.http.*;
@@ -13,10 +14,9 @@ import java.util.List;
 public class LoginServlet extends HttpServlet {
     @Override
     protected void doGet(HttpServletRequest req, HttpServletResponse resp) throws ServletException, IOException {
-        Admin admin = Admin.builder().username("ali").password("ali1213").build();
+        Admin admin = Admin.builder().username("ali").password("ali1213").adminCustomer(Customer.builder().username("mobiii").password("mo123").email("www.com").build()).build();
         Admin admin1 = Admin.builder().username("sara").password("sara1213").build();
         Admin admin2 = Admin.builder().username("reza").password("reza1213").build();
-
         req.getSession().setAttribute("adminList", List.of(admin,admin1, admin2));
         req.getRequestDispatcher("/login.jsp").forward(req, resp);
     }
@@ -27,10 +27,11 @@ public class LoginServlet extends HttpServlet {
         String username = req.getParameter("username");
         String password = req.getParameter("password");
         String rememberMe = req.getParameter("rememberMe");
-        Admin admin= Admin.builder().username(username).password(password).build();
+        Admin admin= Admin.builder().username(username).password(password).locked(false).build();
         System.out.println(admin);
 
         if (rememberMe != null && rememberMe.equals("on")) {
+            System.out.println("remembering...");
             Cookie uCookie = new Cookie("username", username);
             Cookie pCookie = new Cookie("password", password);
             resp.addCookie(uCookie);

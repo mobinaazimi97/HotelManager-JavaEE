@@ -34,10 +34,10 @@ public class Customer extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "customerSeq")
     private Long id;
 
-    @Column(name = "name", length = 20, nullable = false)
+    @Column(name = "name", length = 20)
     private String name;
 
-    @Column(name = "family", length = 20, nullable = false)
+    @Column(name = "family", length = 20)
     private String family;
 
     @Column(name = "username", length = 20, nullable = false, unique = true)

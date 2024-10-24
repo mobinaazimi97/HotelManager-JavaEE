@@ -5,8 +5,10 @@
     <title>Title</title>
 </head>
 <body>
-<c:forEach items="${sessionScope.userList}" var="user">
-    <h1>User : ${user.username}</h1>
+<c:forEach items="${sessionScope.adminList}" var="admin">
+    <h1>Admin : ${admin.username}</h1>
+    <h1>Admins customer mail-> : ${admin.adminCustomer.email}</h1>
+
 </c:forEach>
 <br><br>
 

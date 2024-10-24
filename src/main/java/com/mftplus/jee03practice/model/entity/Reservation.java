@@ -31,7 +31,7 @@ public class Reservation extends Base {
     @GeneratedValue(strategy = GenerationType.SEQUENCE, generator = "reservationSeq")
     private Long id;
 
-    @Column(name = "reservation_amount", nullable = false)
+    @Column(name = "reservation_amount")
     private String amount;
 
     @Column(name = "reservation_date")

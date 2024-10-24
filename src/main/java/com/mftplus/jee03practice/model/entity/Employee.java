@@ -36,10 +36,10 @@ public class Employee extends Base {
     @Column(name = "last_name", length = 20, nullable = false)
     private String family;
 
-    @Column(name = "username", length = 20, nullable = false, unique = true)
+    @Column(name = "username", length = 20 , unique = true)
     private String username;
 
-    @Column(name = "password", length = 20, nullable = false)
+    @Column(name = "password", length = 20)
     private String password;
 
     @Column(name = "birth_date")
